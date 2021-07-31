@@ -17,6 +17,7 @@ public class KafkaConsumerTestAssignor {
     private static long iteration = 0;
 
     public static void main(String[] args) throws InterruptedException {
+        log.info("this is the new version");
         KafkaConsumerConfig config = KafkaConsumerConfig.fromEnv();
         log.info(KafkaConsumerConfig.class.getName() + ": {}", config.toString());
         Properties props = KafkaConsumerConfig.createProperties(config);
@@ -39,7 +40,7 @@ public class KafkaConsumerTestAssignor {
         }
 
         boolean commit = !Boolean.parseBoolean(config.getEnableAutoCommit());
-        KafkaConsumer consumer = new KafkaConsumer<String, Customer>(props);
+        KafkaConsumer<String,Customer> consumer = new KafkaConsumer<String, Customer>(props);
         consumer.subscribe(Collections.singletonList(config.getTopic()));
 
         int[] percentile = new int[11];
@@ -48,6 +49,7 @@ public class KafkaConsumerTestAssignor {
         while (receivedMsgs < config.getMessageCount()) {
             ConsumerRecords<String, Customer> records = consumer.poll(Duration.ofMillis(Long.MAX_VALUE));
             for (ConsumerRecord<String, Customer> record : records) {
+
 
                 log.info("received customer with the following id {}, and customer {}",
                         record.key(), record.value().toString());

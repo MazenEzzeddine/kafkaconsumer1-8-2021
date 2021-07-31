@@ -13,4 +13,4 @@ COPY ./src/main/resources/log4j2.properties /bin/log4j2.properties
 
 ADD target/consumerlagaware-1.0-SNAPSHOT.jar /
 
-CMD ["java","-jar" , "/consumerlagaware-1.0-SNAPSHOT.jar"]
+CMD ["java","-Xms1g", "-Xmx2g", "-jar" , "/consumerlagaware-1.0-SNAPSHOT.jar"]
